@@ -8,8 +8,12 @@ app.use(cors({ origin: ['http://localhost:3000'] }));
 
 app.post('/v1/query', async (req, res) => {
   const body = req.body;
-  body.provider = "my_rhoai";
-  body.model = "granite-8b";
+  if (!body.provider) {
+    body.provider = "my_rhoai";
+  }
+  if (!body.model) {
+    body.model = "granite-8b";
+  }
   console.log(JSON.stringify(body));
   try {
     const r = await axios.post(
