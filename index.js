@@ -9,10 +9,10 @@ app.use(cors({ origin: ['http://localhost:3000'] }));
 app.post('/v1/query', async (req, res) => {
   const body = req.body;
   if (!body.provider) {
-    body.provider = "my_rhoai";
+    body.provider = "my_rhoai_g3";
   }
   if (!body.model) {
-    body.model = "granite-8b";
+    body.model = "granite3-8b";
   }
   console.log(JSON.stringify(body));
   try {
