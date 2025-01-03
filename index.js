@@ -59,6 +59,16 @@ app.post('/v1/query', async (req, res) => {
   }
 });
 
+app.post('/v1/feedback', async (req, res) => {
+  const body = req.body;
+  console.log(JSON.stringify(body));
+  try {
+    return res.status(200).send(JSON.stringify("{}"));
+  } catch (e) {
+    console.error(e);
+  }
+});
+
 app.listen(8080, () => {
   console.log('Express server listening on port 8080');
 });
