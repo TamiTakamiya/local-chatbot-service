@@ -87,11 +87,11 @@ app.post('/v1/streaming_query', async (req, res) => {
               throw new FatalError();
           } else {
               throw new RetriableError();
-          }
+          }``
         },
         onmessage(msg) {
           console.log(msg.data);
-          res.write(msg.data);
+          res.write(`data: ${msg.data}\n\n`);
         },
         onclose() {
           res.end();
