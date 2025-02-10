@@ -71,6 +71,7 @@ app.post('/v1/streaming_query', async (req, res) => {
   console.log(JSON.stringify(body));
 
   try {
+  	const controller = new AbortController();
     await fetchEventSource(
       "http://127.0.0.1:8081/v1/streaming_query", {
         method: "POST",
@@ -91,11 +92,16 @@ app.post('/v1/streaming_query', async (req, res) => {
         },
         onmessage(msg) {
           console.log(msg.data);
-          res.write(`data: ${msg.data}\n\n`);
+          try {
+	          res.write(`data: ${msg.data}\n\n`);
+          } catch (e) {
+          	throw new FatalError();
+          }
         },
         onclose() {
           res.end();
-        }
+        },
+        signal: controller.signal,
       },
     );
   } catch (e) {
